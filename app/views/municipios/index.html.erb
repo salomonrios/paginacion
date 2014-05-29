@@ -1,0 +1,34 @@
+<h1>Lista de municipios</h1>
+<%= form_tag municipios_path, :method => 'get' do %>
+ <% content_tag :label do %>
+   Search term:
+   <%= text_field_tag :search, params[:search] %>
+   <%= submit_tag "Buscar", :name => nil %>
+ <% end %>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @municipios.each do |municipio| %>
+      <tr>
+        <td><%= municipio.nombre %></td>
+        <td><%= link_to 'Show', municipio %></td>
+        <td><%= link_to 'Edit', edit_municipio_path(municipio) %></td>
+        <td><%= link_to 'Destroy', municipio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Municipio', new_municipio_path %>
+<%= will_paginate @municipios, :previous_label => '&laquo; Anterior', :next_label => 'Siguiente &raquo;' %>
+<br>
+Municipios: <%= @municipios.count %>
